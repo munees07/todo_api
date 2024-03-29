@@ -1,6 +1,4 @@
-
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:todo_api/services/todo_services.dart';
 import 'package:todo_api/model/todo_model.dart';

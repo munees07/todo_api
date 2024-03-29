@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:todo_api/model/todo_model.dart';
@@ -10,7 +9,8 @@ class TodoServices {
     return response.statusCode == 200;
   }
 
-  static Future<bool> updateTodo(String id, String title, String description) async {
+  static Future<bool> updateTodo(
+      String id, String title, String description) async {
     final url = 'https://api.nstack.in/v1/todos/$id';
     final response = await http.put(
       Uri.parse(url),
@@ -31,21 +31,20 @@ class TodoServices {
   }
 
   static Future<List<Todo>> fetchTodo() async {
-  const url = 'https://api.nstack.in/v1/todos?page=1&limit=10';
-  final response = await http.get(Uri.parse(url));
-  if (response.statusCode == 200) {
-    final Map<String, dynamic> json = jsonDecode(response.body);
-    if (json.containsKey('items')) {
-      final List<dynamic> todoData = json['items'];
-      final List<Todo> todoList = todoData.map((item) => Todo.fromJson(item)).toList();
-      return todoList;
-
+    const url = 'https://api.nstack.in/v1/todos?page=1&limit=10';
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> json = jsonDecode(response.body);
+      if (json.containsKey('items')) {
+        final List<dynamic> todoData = json['items'];
+        final List<Todo> todoList =
+            todoData.map((item) => Todo.fromJson(item)).toList();
+        return todoList;
+      } else {
+        throw Exception('Failed to fetch todo: Items key not found');
+      }
     } else {
-      throw Exception('Failed to fetch todo: Items key not found');
+      throw Exception('Failed to fetch todo: ${response.statusCode}');
     }
-  } else {
-    throw Exception('Failed to fetch todo: ${response.statusCode}');
   }
-}
-
 }

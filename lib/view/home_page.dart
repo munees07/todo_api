@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:todo_api/controller/todo_provider.dart';
 import 'package:todo_api/model/todo_model.dart';
@@ -17,30 +15,30 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     log('sdfgh');
     return Scaffold(
-      appBar: AppBar(
-        foregroundColor: Colors.white,
-        backgroundColor: Colors.deepPurple[400],
-        centerTitle: true,
-        title: const Text('API TODO',
-            style: TextStyle(fontWeight: FontWeight.bold)),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _navigateToAdd(context),
-        label: const Text('ADD', style: TextStyle(fontWeight: FontWeight.bold)),
-      ),
-      body: FutureBuilder(
-        future: _fetchTodoData(context),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else {
-            return _buildTodoList(context);
-          }
-        },
-      ),
-    );
+        appBar: AppBar(
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.deepPurple[400],
+          centerTitle: true,
+          title: const Text('API TODO',
+              style: TextStyle(fontWeight: FontWeight.bold)),
+        ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () => _navigateToAdd(context),
+          label:
+              const Text('ADD', style: TextStyle(fontWeight: FontWeight.bold)),
+        ),
+        body: FutureBuilder(
+          future: _fetchTodoData(context),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else {
+              return _buildTodoList(context);
+            }
+          },
+        ));
   }
 
   Future<void> _fetchTodoData(BuildContext context) async {
@@ -57,23 +55,21 @@ class HomePage extends StatelessWidget {
             itemBuilder: (context, index) {
               final Todo item = provider.items[index];
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: TodoCard(
-                  index: index,
-                  item: item.toMap(),
-                  onDelete: () => _deleteById(context, item.id),
-                  onEdit: () => _navigateToEdit(context, item),
-                ),
-              );
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: TodoCard(
+                    index: index,
+                    item: item.toMap(),
+                    onDelete: () => _deleteById(context, item.id),
+                    onEdit: () => _navigateToEdit(context, item),
+                  ));
             },
           );
   }
 
   void _navigateToAdd(BuildContext context) {
     Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const AddScreen()),
-    ).then((value) {
+            context, MaterialPageRoute(builder: (context) => const AddScreen()))
+        .then((value) {
       if (value != null) {
         final provider = Provider.of<TodoProvider>(context, listen: false);
         provider.fetchTodo(context);
@@ -82,10 +78,9 @@ class HomePage extends StatelessWidget {
   }
 
   void _navigateToEdit(BuildContext context, Todo todo) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => AddScreen(todo: todo)),
-    ).then((value) {
+    Navigator.push(context,
+            MaterialPageRoute(builder: (context) => AddScreen(todo: todo)))
+        .then((value) {
       if (value != null) {
         final provider = Provider.of<TodoProvider>(context, listen: false);
         provider.fetchTodo(context);

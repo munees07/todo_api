@@ -1,9 +1,5 @@
-
-
 // ignore_for_file: use_build_context_synchronously
-
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_api/controller/todo_provider.dart';
