@@ -1,6 +1,7 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unnecessary_import
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:todo_api/controller/todo_provider.dart';
 import 'package:todo_api/model/todo_model.dart';
 import 'package:provider/provider.dart';
@@ -27,17 +28,29 @@ class HomePage extends StatelessWidget {
           label:
               const Text('ADD', style: TextStyle(fontWeight: FontWeight.bold)),
         ),
-        body: FutureBuilder(
-          future: _fetchTodoData(context),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else {
-              return _buildTodoList(context);
-            }
-          },
+        body: Stack(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: Image.asset(
+                'assets/backgroundTodo.jpg',
+                fit: BoxFit.fill,
+              ),
+            ),
+            FutureBuilder(
+              future: _fetchTodoData(context),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else {
+                  return _buildTodoList(context);
+                }
+              },
+            ),
+          ],
         ));
   }
 

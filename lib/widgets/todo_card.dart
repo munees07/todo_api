@@ -18,16 +18,19 @@ class TodoCard extends StatelessWidget {
       children: [
         const SizedBox(height: 10),
         Card(
-          color: Colors.deepPurple[300],
+          color: const Color.fromRGBO(149, 117, 205, 0.5),
           child: ListTile(
-            leading: CircleAvatar(child: Text('${index + 1}')),
+            leading: CircleAvatar(
+                backgroundColor: Colors.black.withOpacity(0.3),
+                foregroundColor: Colors.white,
+                child: Text('${index + 1}')),
             title: Text(item['title'],
                 style: const TextStyle(
                     fontWeight: FontWeight.bold, color: Colors.white)),
             subtitle: Text(item['description'],
                 style: const TextStyle(color: Colors.white)),
             trailing: PopupMenuButton(
-              color: Colors.white,
+              iconColor: Colors.white,
               onSelected: (value) {
                 if (value == 'edit') {
                   //edit page
@@ -45,7 +48,10 @@ class TodoCard extends StatelessWidget {
                   ),
                   const PopupMenuItem(
                     value: 'delete',
-                    child: Text('Delete'),
+                    child: Text(
+                      'Delete',
+                      style: TextStyle(color: Colors.redAccent),
+                    ),
                   ),
                 ];
               },

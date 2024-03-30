@@ -24,6 +24,7 @@ class AddScreen extends StatelessWidget {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         foregroundColor: Colors.white,
         backgroundColor: Colors.deepPurple[400],
@@ -33,7 +34,19 @@ class AddScreen extends StatelessWidget {
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      body: _buildBody(context, titleController, detailsController),
+      body: Stack(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: Image.asset(
+              'assets/backgroundTodo.jpg',
+              fit: BoxFit.fill,
+            ),
+          ),
+          _buildBody(context, titleController, detailsController),
+        ],
+      ),
     );
   }
 
@@ -46,12 +59,20 @@ class AddScreen extends StatelessWidget {
         children: [
           TextFormField(
             controller: titleController,
-            decoration: const InputDecoration(hintText: 'Title'),
+            decoration: const InputDecoration(
+              hintText: 'Title',
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 2)),
+            ),
           ),
           const SizedBox(height: 20),
           TextFormField(
             controller: detailsController,
-            decoration: const InputDecoration(hintText: 'Details'),
+            decoration: const InputDecoration(
+              hintText: 'Details',
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 2)),
+            ),
             minLines: 5,
             maxLines: 8,
             keyboardType: TextInputType.multiline,
