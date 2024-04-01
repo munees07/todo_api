@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_api/controller/todo_provider.dart';
@@ -13,7 +12,6 @@ class AddScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('qwert');
     final provider = Provider.of<TodoProvider>(context, listen: false);
     final TextEditingController titleController = provider.titleController;
     final TextEditingController detailsController = provider.detailsController;

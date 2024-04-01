@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously, unnecessary_import
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:todo_api/controller/todo_provider.dart';
@@ -14,7 +13,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('sdfgh');
     return Scaffold(
         appBar: AppBar(
           foregroundColor: Colors.white,
